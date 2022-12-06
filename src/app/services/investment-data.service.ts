@@ -20,21 +20,29 @@ export class InvestmentDataService {
   constructor() {
   }
 
-
+  /**
+   * getCompanyDataByInvestmentCategory
+   * 
+   * @description acts similar to http_client behavior as it returns an observable with an Array
+   * as http_client also parses returned JSON into javascript objects so this is a decent mock
+   * @returns Observable<object>
+   */
   public getCompanyDataByInvestmentCategory(investmentCategory: string): Observable<object> {
 
       return of(this.getDefaultCompanyData().pipe(map((defaultCompanyData: object[]) => {
-
-              for(let year of defaultCompanyData){
-                 
-                   year['total'] = 0
-
+              for(let company of defaultCompanyData){
+                    for(let year of company['years']){
+                      year.total = year.investmentCatMap[investmentCategory].total;
+                    } 
               }
-
-
+              return defaultCompanyData;
       })));
   }
 
+  /**
+   * getDefaultCompanyData
+   * @returns Observable<object>
+   */
   public getDefaultCompanyData(): Observable<object> {
     const rtnVal = [];
 
@@ -54,24 +62,16 @@ export class InvestmentDataService {
       //initialize a new year Object
      const yearObj = {year};
 
+     yearObj['total'] = yearTotal;
 
       // add a million each year
       yearTotal += 1000000000;
 
-      rtnVal.push(year);
+      companyObj['years'].push(yearObj);
     }
 
-      // init the categories and their totals for each
-      // by evenly dividing the total by the number of categories
-      // this way it will give the mock data more integrity 
-      const categoryMap = {};
-      companyObj['categoryMap'] = {}
-      for(let cat of this.investmentCategories){
-          categoryMap[cat] = (yearTotal / this.investmentCategories.length);
-      }
-
-    }
-
+    rtnVal.push(company)
+  }
 
     return of(rtnVal);
   }
