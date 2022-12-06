@@ -1,5 +1,5 @@
 <div [@.disabled]="true">
-  <mat-tab-group dynamicHeight>
+  <mat-tab-group dynamicHeight (selectedTabChange)="switchTabs($event)">
     <mat-tab label="Industry">
       <ng-template matTabContent>
         <canvasjs-chart
@@ -9,9 +9,7 @@
       </ng-template>
     </mat-tab>
     <mat-tab label="Company">
-      <ng-template matTabContent>
-
-      </ng-template>
+      <ng-template matTabContent> </ng-template>
     </mat-tab>
   </mat-tab-group>
 </div>

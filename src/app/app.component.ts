@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InvestmentDataService } from './services/investment-data.service';
 
 enum MODES {
@@ -10,40 +10,38 @@ enum MODES {
   selector: 'my-app',
   templateUrl: 'app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly defaultMode = MODES.COMPANY;
+  private chartData: any[];
 
   constructor(private investmentDataService: InvestmentDataService) {}
-
-  get chartData(): object[] {
-    return [{ someKey: 'val' }];
-  }
 
   columnChartOptions = {
     animationEnabled: true,
     theme: 'dark1',
+    height: 150,
     title: {
       //text: 'Angular Column Chart in Material UI Tabs',
     },
-    axisY:{
+    axisY: {
       gridThickness: 0,
       lineThickness: 0,
       tickThickness: 0,
       labelFontSize: 0,
       tickLength: 0,
-      margin: -88
+      margin: -88,
     },
     data: [
       {
-        indexLabel: "{y}",
-        indexLabelPlacement: "outside",  
-        indexLabelOrientation: "horizontal",
-        axisXType: "secondary",
+        indexLabel: '{y}',
+        indexLabelPlacement: 'outside',
+        indexLabelOrientation: 'horizontal',
+        axisXType: 'secondary',
         type: 'column',
         dataPoints: [
-          { label: '2014', color:'#0085ff', y: 1000000000 },
-          { label: '2015', color:'#0085ff', y: 2000000000 },
-          { label: '2016', color:'#0085ff', y: 3000000000 },
+          { label: '2014', color: '#0085ff', y: 1000000000 },
+          { label: '2015', color: '#0085ff', y: 2000000000 },
+          { label: '2016', color: '#0085ff', y: 3000000000 },
           { label: '2017', color: '#0085ff', y: 4000000000 },
           { label: '2018', color: '#0085ff', y: 5000000000 },
           { label: '2019', color: '#0085ff', y: 6000000000 },
@@ -56,11 +54,17 @@ export class AppComponent {
     ],
   };
 
+  ngOnInit() {
+    this.investmentDataService
+      .getDefaultCompanyData()
+      .subscribe((chartData: object) => {
+        console.log(chartData);
+      });
+  }
 
-
-
-  public sayHello() {
+  public switchTabs(event) {
     alert('yo');
     console.log('what up');
+    console.log(event);
   }
 }
