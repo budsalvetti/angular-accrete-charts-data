@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, pipe, map } from 'rxjs';
 
-
 @Injectable()
 export class InvestmentDataService {
-
   private defaultData: any[];
   readonly years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022];
   readonly industries = ['Software', 'Space and foreign technology'];
@@ -17,30 +15,35 @@ export class InvestmentDataService {
     'Divestures',
   ];
 
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * getCompanyDataByInvestmentCategory
-   * 
+   *
    * @description acts similar to http_client behavior as it returns an observable with an Array
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
    * @returns Observable<object>
    */
-  public getCompanyDataByInvestmentCategory(investmentCategory: string): Observable<object> {
-
-      return of(this.getDefaultCompanyData().pipe(map((defaultCompanyData: object[]) => {
-              for(let company of defaultCompanyData){
-                    for(let year of company['years']){
-                      year.total = year.investmentCatMap[investmentCategory].total;
-                    } 
-              }
-              return defaultCompanyData;
-      })));
+  public getCompanyDataByInvestmentCategory(
+    investmentCategory: string
+  ): Observable<object> {
+    return this.getDefaultCompanyData().pipe(
+      map((defaultCompanyData: object[]) => {
+        for (let company of defaultCompanyData) {
+          for (let year of company['years']) {
+            year.total = year.investmentCatMap[investmentCategory].total;
+          }
+        }
+        return defaultCompanyData;
+      })
+    );
   }
 
   /**
    * getDefaultCompanyData
+   *
+   * @description acts similar to http_client behavior as it returns an observable with an Array
+   * as http_client also parses returned JSON into javascript objects so this is a decent mock
    * @returns Observable<object>
    */
   public getDefaultCompanyData(): Observable<object> {
@@ -51,40 +54,69 @@ export class InvestmentDataService {
     for (let company of this.companies) {
       // add name and total to company object
       const companyObj = { name: company };
-    
+
       yearTotal = 100000000;
-      
-     // init years data for company
+
+      // init years data for company
       companyObj['years'] = [];
 
-    for (let year of this.years) {
+      for (let year of this.years) {
+        //initialize a new year Object
+        const yearObj = { year };
 
-      //initialize a new year Object
-     const yearObj = {year};
+        yearObj['total'] = yearTotal;
 
-     yearObj['total'] = yearTotal;
+        // add a million each year
+        yearTotal += 1000000000;
 
-      // add a million each year
-      yearTotal += 1000000000;
+        companyObj['years'].push(yearObj);
+      }
 
-      companyObj['years'].push(yearObj);
+      rtnVal.push(company);
     }
-
-    rtnVal.push(company)
-  }
 
     return of(rtnVal);
   }
 
-  public getDefaultIndustryData(): Observable<string> {
-    return of('test');
+  /**
+   * getDefaultIndustryData
+   * @returns Observable<object>
+   */
+  public getDefaultIndustryData(): Observable<object> {
+    const rtnVal = [];
+
+    for (let industry of this.industries) {
+      const industryObj = { name: industry };
+
+      industryObj['years'] = [];
+
+      let yearTotal = 100000000;
+
+      for (let year of this.years) {
+        const yearObj = { year };
+
+        yearObj['total'] = yearTotal;
+        yearObj['score'] = yearTotal;
+
+        yearTotal += 1000000000;
+      }
+    }
+
+    return of(rtnVal);
   }
 
   /**
-   * getCompanyNames
-   * @returns Array
+   * getIndustryDataByInvestmentCategory
+   *
+   * @description acts similar to http_client behavior as it returns an observable with an Array
+   * as http_client also parses returned JSON into javascript objects so this is a decent mock
+   * this should be doing alot more if it was truly gathering all the totals from the proper place
+   * but we can pretend for this excercise :)
+   * @returns Observable<object>
    */
-  getCompanyNames(): Observable<any> {
-    return of([...this.companies]);
+  public getIndustryDataByInvestmentCategory(
+    investmentCategory: string
+  ): Observable<object> {
+    return this.getDefaultIndustryData();
   }
 }
