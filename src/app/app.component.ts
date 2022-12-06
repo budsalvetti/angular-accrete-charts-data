@@ -1,10 +1,32 @@
 import { Component } from '@angular/core';
+import { InvestmentDataService } from './services/investment-data.service';
+
+enum MODES {
+  COMPANY,
+  INDUSTRY
+}
 
 @Component({
   selector: 'my-app',
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
+
+  private readonly defaultMode = MODES.COMPANY;
+
+    constructor(private investmentDataService: InvestmentDataService){}
+
+    //private readonly defaultMode = MODES.INDUSTRY;
+
+   
+
+
+
+    get chartData(): object[] { 
+      return [{someKey: 'val'}] ;
+    }
+
+
   columnChartOptions = {
     animationEnabled: true,
     title: {

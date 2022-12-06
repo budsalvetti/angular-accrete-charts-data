@@ -7,11 +7,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
 var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
+import { InvestmentDataService } from './services/investment-data.service';
 
 @NgModule({
   declarations: [AppComponent, CanvasJSChart],
   imports: [BrowserAnimationsModule, BrowserModule, MatTabsModule],
-  providers: [],
+  providers: [InvestmentDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
