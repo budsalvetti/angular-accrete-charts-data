@@ -21,63 +21,32 @@ export class AppComponent {
 
   columnChartOptions = {
     animationEnabled: true,
+    theme: 'dark1',
     title: {
       text: 'Angular Column Chart in Material UI Tabs',
     },
+    axisY:{
+      gridThickness: 0,
+      lineThickness: 0,
+      tickThickness: 0,
+      labelFontSize: 0
+    },
     data: [
       {
-        // Change type to "doughnut", "line", "splineArea", etc.
         type: 'column',
         dataPoints: [
-          { label: 'apple', y: 10 },
-          { label: 'orange', y: 15 },
-          { label: 'banana', y: 25 },
-          { label: 'mango', y: 30 },
-          { label: 'grape', y: 28 },
+          { label: 'apple', color:'#0085ff', y: 10 },
+          { label: 'orange', color:'#0085ff', y: 15 },
+          { label: 'banana', color:'#0085ff', y: 25 },
+          { label: 'mango', color: '#0085ff', y: 30 },
+          { label: 'grape', color: '#0085ff', y: 28 },
         ],
       },
     ],
   };
 
-  pieChartOptions = {
-    animationEnabled: true,
-    title: {
-      text: 'Angular Pie Chart in Material UI Tabs',
-    },
-    theme: 'light2', // "light1", "dark1", "dark2"
-    data: [
-      {
-        type: 'pie',
-        dataPoints: [
-          { label: 'apple', y: 10 },
-          { label: 'orange', y: 15 },
-          { label: 'banana', y: 25 },
-          { label: 'mango', y: 30 },
-          { label: 'grape', y: 28 },
-        ],
-      },
-    ],
-  };
 
-  lineChartOptions = {
-    animationEnabled: true,
-    title: {
-      text: 'Angular Line Chart in Material UI Tabs',
-    },
-    theme: 'light2', // "light1", "dark1", "dark2"
-    data: [
-      {
-        type: 'line',
-        dataPoints: [
-          { label: 'apple', y: 10 },
-          { label: 'orange', y: 15 },
-          { label: 'banana', y: 25 },
-          { label: 'mango', y: 30 },
-          { label: 'grape', y: 28 },
-        ],
-      },
-    ],
-  };
+
 
   public sayHello() {
     alert('yo');
