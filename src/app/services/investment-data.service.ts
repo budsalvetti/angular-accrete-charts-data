@@ -3,6 +3,7 @@ import { Observable, of, pipe, map } from 'rxjs';
 
 @Injectable()
 export class InvestmentDataService {
+  
   public readonly years = [
     2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
   ];
@@ -119,7 +120,10 @@ export class InvestmentDataService {
   }
 
   /**
-   * @description converts raw companies datasets in chart data suitable for initializing an array of charts
+   * getCompanyChartData
+   * @returns Observable<any[]>
+   * @description creates an array of chart data suitable to plugin in to canvasJS chart
+   * by adapting the raw company data as such
    */
   public getCompanyChartData(investmentCategory:string): Observable<any[]> {
     return this.getCompanyData(investmentCategory).pipe(
@@ -163,6 +167,12 @@ export class InvestmentDataService {
     );
   }
 
+  /**
+   * getIndustryChartData
+   * @returns Observable<any[]>
+   * @description creates an array of chart data suitable to plugin in to canvasJS chart
+   * by adapting the raw industry data as such
+   */
   public getIndustryChartData(investmentCategory: string): Observable<any[]> {
     return this.getIndustryData(investmentCategory).pipe(
       map((chartData: any[]) => {
