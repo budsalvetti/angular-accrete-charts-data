@@ -16,11 +16,13 @@ export class AppComponent implements OnInit {
 
   constructor(private investmentDataService: InvestmentDataService) {}
 
+  // these default chart options are shallow copied each time they are used
+  // see ngOnInit()
   defaultChartOptions = {
     animationEnabled: true,
     theme: 'dark1',
     height: 150,
-    axisX2: { lineThickness: 0, tickThickness: 0 },
+    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize:16 },
     axisY: {
       gridThickness: 0,
       lineThickness: 0,
@@ -52,8 +54,8 @@ export class AppComponent implements OnInit {
           //shallow copy the default chart options
           let newChartOptions = { ...this.defaultChartOptions };
 
-          if(i>0){
-            newChartOptions.axisX2['fontWeight'] = 0;
+          if(i > 0){
+            newChartOptions.axisX2 = { lineThickness: 0, tickThickness: 0,labelFontSize: 0 };
           }
 
           newChartOptions['companyName'] = company.name;
