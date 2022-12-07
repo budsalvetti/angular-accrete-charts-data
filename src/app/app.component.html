@@ -25,29 +25,30 @@
       </option>
     </select>
   </div>
-   <!-- END Controls Container -->
+  <!-- END Controls Container -->
 
-  <!-- Display the charts -->
+  <!-- BEGIN Charts Container -->
   <div id="chartsContainer">
-   
     <!-- loop the charts -->
-    <div *ngFor="let company of chartData" style="height:150px;display:flex;width:100%">
-    <!-- company name -->
-    <div style="width:170px;height:100%;display:flex;align-items:center;margin-left:20px">
-      {{ company.entityName }}
-    </div>
+    <div
+      *ngFor="let company of chartData"
+      style="height:150px;display:flex;width:100%"
+    >
+      <!-- company name -->
+      <div
+        style="width:170px;height:100%;display:flex;align-items:center;margin-left:20px"
+      >
+        {{ company.entityName }}
+      </div>
 
-    <!-- chart -->
-    <div style="width:100%">
-      <canvasjs-chart
-        [options]="company"
-        [styles]="{ width: '100%' }"
-      ></canvasjs-chart>
+      <!-- chart -->
+      <div style="width:100%">
+        <canvasjs-chart
+          [options]="company"
+          [styles]="{ width: '100%' }"
+        ></canvasjs-chart>
+      </div>
     </div>
   </div>
-
-
-  </div>
-
-
+  <!-- END Charts Container -->
 </div>
