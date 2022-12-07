@@ -108,6 +108,8 @@ export class InvestmentDataService {
   /**
    * getDefaultIndustryData
    * @returns Observable<object>
+   * @description creates mock industry data set similar to 
+   * what may be retrieved from a remote service call
    */
   public getDefaultIndustryData(): Observable<any[]> {
     const rtnVal = [];
