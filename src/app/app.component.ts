@@ -73,12 +73,10 @@ export class AppComponent implements OnInit {
 
   // dropdown change handler for main entity COMPANY or INDUSTRY
   public handleEntityChange(evt) {
-    alert('what is the evt ' + JSON.stringify(evt));
   }
 
   // dropdown change handler for investment category filter dropdown
   public handleCatFilterChange(evt) {
-    alert('what is the evt ' + JSON.stringify(evt));
   }
 
   public getChartOptions(i: number) {
