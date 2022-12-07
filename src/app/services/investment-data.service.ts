@@ -3,7 +3,6 @@ import { Observable, of, pipe, map } from 'rxjs';
 
 @Injectable()
 export class InvestmentDataService {
-  private defaultData: any[];
   public readonly years = [
     2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
   ];
@@ -17,7 +16,7 @@ export class InvestmentDataService {
     'Divestures',
   ];
 
-  // basic chart visual configuration that can be cloned 
+  // basic chart visual configuration that can be cloned
   public readonly defaultChartOptions = {
     animationEnabled: true,
     theme: 'dark1',
@@ -46,7 +45,6 @@ export class InvestmentDataService {
     ],
   };
 
-
   constructor() {}
 
   /**
@@ -72,7 +70,7 @@ export class InvestmentDataService {
   }
 
   /**
-   * getDefaultData
+   * getDefaultCompanyData
    *
    * @description acts similar to http_client behavior as it returns an observable with an Array
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
@@ -151,91 +149,92 @@ export class InvestmentDataService {
     return this.getDefaultIndustryData();
   }
 
-
   /**
    * @description converts raw companies datasets in chart data suitable for initializing an array of charts
    */
-  public getDefaultCompanyChartData(): Observable<any[]>{
-   return this.getDefaultCompanyData().pipe(map((chartData: any[]) => {
-    const adaptedChartData = [];
+  public getDefaultCompanyChartData(): Observable<any[]> {
+    return this.getDefaultCompanyData().pipe(
+      map((chartData: any[]) => {
+        const adaptedChartData = [];
 
-    for (let i = 0; i < chartData.length; i++) {
-      const company = chartData[i];
+        for (let i = 0; i < chartData.length; i++) {
+          const company = chartData[i];
 
-      //shallow copy the default chart options
-      let newChartOptions = {
-        ...this.defaultChartOptions,
-      };
+          //shallow copy the default chart options
+          let newChartOptions = {
+            ...this.defaultChartOptions,
+          };
 
-      if (i > 0) {
-        newChartOptions.axisX2 = {
-          lineThickness: 0,
-          tickThickness: 0,
-          labelFontSize: 0,
-        };
-      }
+          if (i > 0) {
+            newChartOptions.axisX2 = {
+              lineThickness: 0,
+              tickThickness: 0,
+              labelFontSize: 0,
+            };
+          }
 
-      newChartOptions['entityName'] = company.name;
+          newChartOptions['entityName'] = company.name;
 
-      newChartOptions.data[0].dataPoints = [];
+          newChartOptions.data[0].dataPoints = [];
 
-      for (let year of company['years']) {
-        newChartOptions.data[0].dataPoints.push({
-          label: year.year as string,
-          color: '#0085ff',
-          y: year['total'],
-        });
-      }
+          for (let year of company['years']) {
+            newChartOptions.data[0].dataPoints.push({
+              label: year.year as string,
+              color: '#0085ff',
+              y: year['total'],
+            });
+          }
 
-      adaptedChartData.push(newChartOptions);
+          adaptedChartData.push(newChartOptions);
+        }
 
-    }
-  
-    return adaptedChartData;
-  }));
-
+        return adaptedChartData;
+      })
+    );
   }
 
-  public getDefaultIndustryChartData(): Observable<any[]>{
-    return this.getDefaultIndustryData().pipe(map((chartData: any[]) => {
-     const adaptedChartData = [];
- 
-     for (let i = 0; i < chartData.length; i++) {
-       const industryObj = chartData[i];
- 
-       //shallow copy the default chart options
-       let newChartOptions = {
-         ...this.defaultChartOptions,
-       };
-       
-       // hide x axis for all charts but the first
-       if (i > 0) {
-         newChartOptions.axisX2 = {
-           lineThickness: 0,
-           tickThickness: 0,
-           labelFontSize: 0,
-         };
-       }
- 
-       newChartOptions['entityName'] = industryObj.name;
- 
-       newChartOptions.data[0].dataPoints = [];
- 
-       for (let year of industryObj['years']) {
-         newChartOptions.data[0].dataPoints.push({
-           label: year.year as string,
-           color: '#0085ff',
-           y: year['total'],
-         });
-       }
- 
-       adaptedChartData.push(newChartOptions);
- 
-     }
-   
-     return adaptedChartData;
-   }));
- 
-   }
+  public getDefaultIndustryChartData(): Observable<any[]> {
+    return this.getDefaultIndustryData().pipe(
+      map((chartData: any[]) => {
+        const adaptedChartData = [];
 
+        for (let i = 0; i < chartData.length; i++) {
+          const industryObj = chartData[i];
+
+          //shallow copy the default chart options
+          let newChartOptions = {
+            ...this.defaultChartOptions,
+          };
+
+          // hide x axis for all charts but the first
+          if (i > 0) {
+            newChartOptions.axisX2 = {
+              lineThickness: 0,
+              tickThickness: 0,
+              labelFontSize: 0,
+            };
+          }
+
+          newChartOptions['entityName'] = industryObj.name;
+
+          newChartOptions.data[0].dataPoints = [];
+
+          console.log(JSON.stringify(industryObj));
+          
+          for (let year of industryObj['years']) {
+            newChartOptions.data[0].dataPoints.push({
+              label: year.year as string,
+              color: '#0085ff',
+              y: year['total'],
+            });
+          }
+
+          adaptedChartData.push(newChartOptions);
+        }
+
+        console.log(JSON.stringify(adaptedChartData));
+        return adaptedChartData;
+      })
+    );
+  }
 }
