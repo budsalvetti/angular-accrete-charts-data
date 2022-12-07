@@ -125,6 +125,8 @@ export class InvestmentDataService {
         yearObj['total'] = yearTotal;
         yearObj['score'] = yearTotal;
 
+        industryObj['years'].push(yearObj);
+
         yearTotal += 1000000000;
       }
 
@@ -220,7 +222,7 @@ export class InvestmentDataService {
           newChartOptions.data[0].dataPoints = [];
 
           console.log(JSON.stringify(industryObj));
-          
+
           for (let year of industryObj['years']) {
             newChartOptions.data[0].dataPoints.push({
               label: year.year as string,
@@ -232,7 +234,6 @@ export class InvestmentDataService {
           adaptedChartData.push(newChartOptions);
         }
 
-        console.log(JSON.stringify(adaptedChartData));
         return adaptedChartData;
       })
     );
