@@ -72,7 +72,7 @@ export class InvestmentDataService {
   }
 
   /**
-   * getDefaultCompanyData
+   * getDefaultData
    *
    * @description acts similar to http_client behavior as it returns an observable with an Array
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
@@ -150,4 +150,47 @@ export class InvestmentDataService {
   ): Observable<any[]> {
     return this.getDefaultIndustryData();
   }
+
+
+  public getDefaultCompanyChartData(): Observable<any[]>{
+   return this.getDefaultCompanyData().pipe(map((chartData: any[]) => {
+    const adaptedChartData = [];
+
+    for (let i = 0; i < chartData.length; i++) {
+      const company = chartData[i];
+
+      //shallow copy the default chart options
+      let newChartOptions = {
+        ...this.defaultChartOptions,
+      };
+
+      if (i > 0) {
+        newChartOptions.axisX2 = {
+          lineThickness: 0,
+          tickThickness: 0,
+          labelFontSize: 0,
+        };
+      }
+
+      newChartOptions['companyName'] = company.name;
+
+      newChartOptions.data[0].dataPoints = [];
+
+      for (let year of company['years']) {
+        newChartOptions.data[0].dataPoints.push({
+          label: year.year as string,
+          color: '#0085ff',
+          y: year['total'],
+        });
+      }
+
+      adaptedChartData.push(newChartOptions);
+
+    }
+  
+    return adaptedChartData;
+  }));
+
+  }
+
 }

@@ -34,49 +34,30 @@ export class AppComponent implements OnInit {
     // get the data for the investment category dropdown
     this.investmentCategories = this.investmentDataService.investmentCategories;
     this.investmentCategories.push('ALL');
+ 
+    this.populateChartData();
 
-    this.investmentDataService
-      .getDefaultCompanyData()
-      .subscribe((chartData: any[]) => {
-        for (let i = 0; i < chartData.length; i++) {
-          const company = chartData[i];
+  }
 
-          //shallow copy the default chart options
-          let newChartOptions = {
-            ...this.investmentDataService.defaultChartOptions,
-          };
 
-          if (i > 0) {
-            newChartOptions.axisX2 = {
-              lineThickness: 0,
-              tickThickness: 0,
-              labelFontSize: 0,
-            };
-          }
+  private populateChartData(){
+    this.investmentDataService.getDefaultCompanyChartData().subscribe((res: any[]) => {
+      this.chartData = res;
+    });
 
-          newChartOptions['companyName'] = company.name;
-
-          newChartOptions.data[0].dataPoints = [];
-
-          for (let year of company['years']) {
-            newChartOptions.data[0].dataPoints.push({
-              label: year.year as string,
-              color: '#0085ff',
-              y: year['total'],
-            });
-          }
-
-          this.chartData.push(newChartOptions);
-        }
-      });
   }
 
   // dropdown change handler for main entity COMPANY or INDUSTRY
-  public handleEntityChange(evt) {
+  public handleEntityChange(entity) {
+
+    if(entity === MODES.COMPANY){
+      
+    }
+    
   }
 
   // dropdown change handler for investment category filter dropdown
-  public handleCatFilterChange(evt) {
+  public handleCatFilterChange(category) {
   }
 
   public getChartOptions(i: number) {
