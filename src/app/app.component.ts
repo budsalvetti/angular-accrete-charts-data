@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(private investmentDataService: InvestmentDataService) {}
 
-  columnChartOptions = {
+  defaultChartOptions = {
     animationEnabled: true,
     theme: 'dark1',
     height: 150,
@@ -45,9 +45,18 @@ export class AppComponent implements OnInit {
     this.investmentDataService
       .getDefaultCompanyData()
       .subscribe((chartData: any[]) => {
-        for (let company of chartData) {
-          //copy the default chart options
-          let newChartOptions = { ...this.columnChartOptions };
+        for (let i=0; i<chartData.length; i++) {
+
+          const company = chartData[i];
+
+          //shallow copy the default chart options
+          let newChartOptions = { ...this.defaultChartOptions };
+
+          if(i>0){
+            newChartOptions.axisX2['fontWeight'] = 0;
+          }
+
+          newChartOptions['companyName'] = company.name;
 
           newChartOptions.data[0].dataPoints = [];
 
