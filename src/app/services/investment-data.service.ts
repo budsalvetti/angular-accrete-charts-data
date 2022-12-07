@@ -152,6 +152,9 @@ export class InvestmentDataService {
   }
 
 
+  /**
+   * @description converts raw companies datasets in chart data suitable for initializing an array of charts
+   */
   public getDefaultCompanyChartData(): Observable<any[]>{
    return this.getDefaultCompanyData().pipe(map((chartData: any[]) => {
     const adaptedChartData = [];
@@ -172,7 +175,7 @@ export class InvestmentDataService {
         };
       }
 
-      newChartOptions['companyName'] = company.name;
+      newChartOptions['entityName'] = company.name;
 
       newChartOptions.data[0].dataPoints = [];
 
@@ -192,5 +195,47 @@ export class InvestmentDataService {
   }));
 
   }
+
+  public getDefaultIndustryChartData(): Observable<any[]>{
+    return this.getDefaultIndustryData().pipe(map((chartData: any[]) => {
+     const adaptedChartData = [];
+ 
+     for (let i = 0; i < chartData.length; i++) {
+       const industry = chartData[i];
+ 
+       //shallow copy the default chart options
+       let newChartOptions = {
+         ...this.defaultChartOptions,
+       };
+       
+       // hide x axis for all charts but the first
+       if (i > 0) {
+         newChartOptions.axisX2 = {
+           lineThickness: 0,
+           tickThickness: 0,
+           labelFontSize: 0,
+         };
+       }
+ 
+       newChartOptions['entityName'] = industry.name;
+ 
+       newChartOptions.data[0].dataPoints = [];
+ 
+       for (let year of industry['years']) {
+         newChartOptions.data[0].dataPoints.push({
+           label: year.year as string,
+           color: '#0085ff',
+           y: year['total'],
+         });
+       }
+ 
+       adaptedChartData.push(newChartOptions);
+ 
+     }
+   
+     return adaptedChartData;
+   }));
+ 
+   }
 
 }
