@@ -56,7 +56,7 @@ export class InvestmentDataService {
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
    * @returns Observable<object>
    */
-  public getCompanyData(): Observable<any[]> {
+  public getCompanyData(investmentCategory:string): Observable<any[]> {
     const rtnVal = [];
 
     let yearTotal = 100000000;
@@ -91,7 +91,7 @@ export class InvestmentDataService {
    * @description creates mock industry data set similar to
    * what may be retrieved from a remote service call
    */
-  public getIndustryData(): Observable<any[]> {
+  public getIndustryData(investmentCategory:string): Observable<any[]> {
     const rtnVal = [];
 
     for (let industry of this.industries) {
@@ -109,7 +109,7 @@ export class InvestmentDataService {
 
         industryObj['years'].push(yearObj);
 
-        yearTotal += 1000000000;
+        yearTotal += 100000000;
       }
 
       rtnVal.push(industryObj);
@@ -122,7 +122,7 @@ export class InvestmentDataService {
    * @description converts raw companies datasets in chart data suitable for initializing an array of charts
    */
   public getCompanyChartData(investmentCategory:string): Observable<any[]> {
-    return this.getCompanyData().pipe(
+    return this.getCompanyData(investmentCategory).pipe(
       map((chartData: any[]) => {
         const adaptedChartData = [];
 
@@ -164,7 +164,7 @@ export class InvestmentDataService {
   }
 
   public getIndustryChartData(investmentCategory: string): Observable<any[]> {
-    return this.getIndustryData().pipe(
+    return this.getIndustryData(investmentCategory).pipe(
       map((chartData: any[]) => {
         const adaptedChartData = [];
 
