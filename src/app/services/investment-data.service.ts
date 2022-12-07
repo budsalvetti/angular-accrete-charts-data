@@ -3,10 +3,12 @@ import { Observable, of, pipe, map } from 'rxjs';
 
 @Injectable()
 export class InvestmentDataService {
-  
+
+  // BEGIN MOCK DATA SETUP variables
   public readonly years = [
     2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
   ];
+
   public readonly industries = ['Software', 'Space and foreign technology'];
   public readonly companies = ['ArgusSoft', 'Andromedan Light'];
   public readonly investmentCategories = [
@@ -16,6 +18,15 @@ export class InvestmentDataService {
     'R&D',
     'Divestures',
   ];
+
+  // this is mock data that is used as a starting point for investment categories which will be incremted to simulate change as we create the mock data
+  public readonly mockCategorySeedAmounts = {'CAPEX': 15000000,
+                                            'Revenue': 100000,
+                                            'Aquisitions': 20000000,
+                                            'R&D': 30000000,
+                                            'Divestures': 400000};
+
+// END MOCK DATA SETUP variables
 
 
   // basic chart visual configuration that can be cloned
@@ -31,8 +42,7 @@ export class InvestmentDataService {
       lineThickness: 0,
       tickThickness: 0,
       labelFontSize: 0,
-      tickLength: 0,
-      margin: -88,
+      tickLength: 0
     },
     data: [
       {
@@ -60,13 +70,11 @@ export class InvestmentDataService {
   public getCompanyData(investmentCategory:string): Observable<any[]> {
     const rtnVal = [];
 
-    let yearTotal = 100000000;
+    let yearTotal = this.mockCategorySeedAmounts[investmentCategory];;
 
     for (let company of this.companies) {
       // add name and total to company object
       const companyObj = { name: company };
-
-      yearTotal = 100000000;
 
       // init years data for company
       companyObj['years'] = [];
@@ -76,7 +84,7 @@ export class InvestmentDataService {
         const yearObj = { year };
         yearObj['total'] = yearTotal;
         // add a million each year
-        yearTotal += 100000000;
+        yearTotal += 100000;
         companyObj['years'].push(yearObj);
       }
 
@@ -100,7 +108,7 @@ export class InvestmentDataService {
 
       industryObj['years'] = [];
 
-      let yearTotal = 100000000;
+      let yearTotal = this.mockCategorySeedAmounts[investmentCategory];
 
       for (let year of this.years) {
         const yearObj = { year };
@@ -110,7 +118,7 @@ export class InvestmentDataService {
 
         industryObj['years'].push(yearObj);
 
-        yearTotal += 100000000;
+        yearTotal += 100000;
       }
 
       rtnVal.push(industryObj);
