@@ -18,6 +18,10 @@ export class AppComponent implements OnInit {
 
   public investmentCategories: any[];
 
+  // initialize form dropdown values
+  public selectedEntity = MODES.COMPANY;
+  public selectCategoryFilter = 'ALL';
+
   // an Array of chartData objects used to populate the charts
   public chartData: any[] = [];
 
