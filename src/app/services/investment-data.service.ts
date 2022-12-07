@@ -16,6 +16,7 @@ export class InvestmentDataService {
     'Divestures',
   ];
 
+
   // basic chart visual configuration that can be cloned
   public readonly defaultChartOptions = {
     animationEnabled: true,
@@ -47,36 +48,15 @@ export class InvestmentDataService {
 
   constructor() {}
 
-  /**
-   * getCompanyDataByInvestmentCategory
-   *
-   * @description acts similar to http_client behavior as it returns an observable with an Array
-   * as http_client also parses returned JSON into javascript objects so this is a decent mock
-   * @returns Observable<object>
-   */
-  public getCompanyDataByInvestmentCategory(
-    investmentCategory: string
-  ): Observable<object> {
-    return this.getDefaultCompanyData().pipe(
-      map((defaultCompanyData: object[]) => {
-        for (let company of defaultCompanyData) {
-          for (let year of company['years']) {
-            year.total = year.investmentCatMap[investmentCategory].total;
-          }
-        }
-        return defaultCompanyData;
-      })
-    );
-  }
 
   /**
-   * getDefaultCompanyData
+   * getCompanyData
    *
    * @description acts similar to http_client behavior as it returns an observable with an Array
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
    * @returns Observable<object>
    */
-  public getDefaultCompanyData(): Observable<any[]> {
+  public getCompanyData(): Observable<any[]> {
     const rtnVal = [];
 
     let yearTotal = 100000000;
@@ -106,12 +86,12 @@ export class InvestmentDataService {
   }
 
   /**
-   * getDefaultIndustryData
+   * getIndustryData
    * @returns Observable<object>
    * @description creates mock industry data set similar to
    * what may be retrieved from a remote service call
    */
-  public getDefaultIndustryData(): Observable<any[]> {
+  public getIndustryData(): Observable<any[]> {
     const rtnVal = [];
 
     for (let industry of this.industries) {
@@ -139,25 +119,10 @@ export class InvestmentDataService {
   }
 
   /**
-   * getIndustryDataByInvestmentCategory
-   *
-   * @description acts similar to http_client behavior as it returns an observable with an Array
-   * as http_client also parses returned JSON into javascript objects so this is a decent mock
-   * this should be doing alot more if it was truly gathering all the totals from the proper place
-   * but we can pretend for this excercise :)
-   * @returns Observable<object>
-   */
-  public getIndustryDataByInvestmentCategory(
-    investmentCategory: string
-  ): Observable<any[]> {
-    return this.getDefaultIndustryData();
-  }
-
-  /**
    * @description converts raw companies datasets in chart data suitable for initializing an array of charts
    */
-  public getDefaultCompanyChartData(): Observable<any[]> {
-    return this.getDefaultCompanyData().pipe(
+  public getCompanyChartData(investmentCategory:string): Observable<any[]> {
+    return this.getCompanyData().pipe(
       map((chartData: any[]) => {
         const adaptedChartData = [];
 
@@ -197,8 +162,8 @@ export class InvestmentDataService {
     );
   }
 
-  public getDefaultIndustryChartData(): Observable<any[]> {
-    return this.getDefaultIndustryData().pipe(
+  public getIndustryChartData(investmentCategory: string): Observable<any[]> {
+    return this.getIndustryData().pipe(
       map((chartData: any[]) => {
         const adaptedChartData = [];
 
@@ -238,4 +203,18 @@ export class InvestmentDataService {
       })
     );
   }
+
+  /**
+   * getChartData
+   * @description main entry point for all data requests from UI
+   * @returns Observable<any[]>
+   */
+  public getChartData(entity:string, investmentCategory): Observable<any[]> {
+    if(entity === 'COMPANY'){
+      return this.getCompanyChartData(investmentCategory);
+    } else if (entity === 'INDUSTRY') {
+      return this.getIndustryChartData(investmentCategory);
+    }
+  }
+
 }

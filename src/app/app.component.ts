@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   // initialize form dropdown values
   public selectedEntity = MODES.COMPANY;
-  public selectedCategoryFilter = 'ALL';
+  public selectedCategoryFilter = 'CAPEX';
 
   // an Array of chartData objects used to populate the charts
   public chartData: any[] = [];
@@ -34,36 +34,26 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get the data for the investment category dropdown
     this.investmentCategories = this.investmentDataService.investmentCategories;
-    this.investmentCategories.push('ALL');
 
-    this.populateChartData(MODES.COMPANY);
+    this.populateChartData(this.selectedEntity, this.selectedCategoryFilter);
   }
 
-  private populateChartData(entity: string) {
-    if (entity === MODES.COMPANY) {
+  private populateChartData(entity: string, category: string) {
       this.investmentDataService
-        .getDefaultCompanyChartData()
-        .subscribe((res: any[]) => {
+        .getChartData(entity,category).subscribe((res: any[]) => {
           this.chartData = res;
         });
-    } else {
-      this.investmentDataService
-        .getDefaultIndustryChartData()
-        .subscribe((res: any[]) => {
-          this.chartData = res;
-        });
-    }
   }
 
   // dropdown change handler for main entity COMPANY or INDUSTRY
   public handleEntityChange(entity) {
-    this.populateChartData(entity);
+    this.populateChartData(entity, this.selectedCategoryFilter);
   }
 
   // dropdown change handler for investment category filter dropdown
-  public handleCatFilterChange(category) {}
-
-  public getChartOptions(i: number) {
-    return this.chartData[i];
+  public handleCatFilterChange(category) {
+    this.populateChartData(this.selectedEntity, category)
   }
+
+
 }
