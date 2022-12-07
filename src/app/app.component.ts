@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(private investmentDataService: InvestmentDataService) {}
 
+  chartsArray: any[];
+
   columnChartOptions = {
     animationEnabled: true,
     theme: 'dark1',

@@ -63,16 +63,13 @@ export class InvestmentDataService {
       for (let year of this.years) {
         //initialize a new year Object
         const yearObj = { year };
-
         yearObj['total'] = yearTotal;
-
         // add a million each year
-        yearTotal += 1000000000;
-
+        yearTotal += 100000000;
         companyObj['years'].push(yearObj);
       }
 
-      rtnVal.push(company);
+      rtnVal.push(companyObj);
     }
 
     return of(rtnVal);
@@ -100,6 +97,8 @@ export class InvestmentDataService {
 
         yearTotal += 1000000000;
       }
+
+      rtnVal.push(industryObj);
     }
 
     return of(rtnVal);
