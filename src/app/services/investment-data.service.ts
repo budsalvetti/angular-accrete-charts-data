@@ -17,6 +17,36 @@ export class InvestmentDataService {
     'Divestures',
   ];
 
+  // basic chart visual configuration that can be cloned 
+  public readonly defaultChartOptions = {
+    animationEnabled: true,
+    theme: 'dark1',
+    height: 150,
+    // put the x-axis on top by using axisX2
+    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize: 14 },
+    axisY: {
+      // hide the y x-axis completely
+      gridThickness: 0,
+      lineThickness: 0,
+      tickThickness: 0,
+      labelFontSize: 0,
+      tickLength: 0,
+      margin: -88,
+    },
+    data: [
+      {
+        indexLabel: '{y}',
+        indexLabelPlacement: 'outside',
+        indexLabelOrientation: 'horizontal',
+        // axisXType as secondary means to use the axisX2 above
+        axisXType: 'secondary',
+        type: 'column',
+        dataPoints: [],
+      },
+    ],
+  };
+
+
   constructor() {}
 
   /**

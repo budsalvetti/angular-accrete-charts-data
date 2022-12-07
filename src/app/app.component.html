@@ -4,13 +4,13 @@
   <!-- Controls Container -->
   <div id="controlsContainer" style="dispay:flex;flex-grow:1">
     <!-- ENTITY SELECT -->
-    <select id="entitySelect" name="entitySelect">
+    <select id="entitySelect" name="entitySelect" (change)="handleEntityChange($event)">
       <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
     </select>
 
     <!-- FILTER CATEGORY SELECT -->
-    <select id="categoryFilterSelect" name="categoryFilterSelect">
-      <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
+    <select id="categoryFilterSelect" name="categoryFilterSelect" (change)="handleCatFilterChange($event)">
+      <option *ngFor="let category of investmentCategories" [value]="category">{{ category }}</option>
     </select>
   </div>
 
