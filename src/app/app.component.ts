@@ -12,6 +12,8 @@ enum MODES {
 })
 export class AppComponent implements OnInit {
   private readonly defaultMode = MODES.COMPANY;
+
+  // an Array of chartData objects used to populate the charts
   public chartData: any[] = [];
 
   constructor(private investmentDataService: InvestmentDataService) {}
@@ -22,8 +24,10 @@ export class AppComponent implements OnInit {
     animationEnabled: true,
     theme: 'dark1',
     height: 150,
-    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize:16 },
+    // put the x-axis on top by using axisX2
+    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize: 14 },
     axisY: {
+      // hide the y x-axis completely
       gridThickness: 0,
       lineThickness: 0,
       tickThickness: 0,
@@ -36,6 +40,7 @@ export class AppComponent implements OnInit {
         indexLabel: '{y}',
         indexLabelPlacement: 'outside',
         indexLabelOrientation: 'horizontal',
+        // axisXType as secondary means to use the axisX2 above
         axisXType: 'secondary',
         type: 'column',
         dataPoints: [],
@@ -43,19 +48,25 @@ export class AppComponent implements OnInit {
     ],
   };
 
+  /**
+   * @description Get the initial default data which is by company
+   */
   ngOnInit() {
     this.investmentDataService
       .getDefaultCompanyData()
       .subscribe((chartData: any[]) => {
-        for (let i=0; i<chartData.length; i++) {
-
+        for (let i = 0; i < chartData.length; i++) {
           const company = chartData[i];
 
           //shallow copy the default chart options
           let newChartOptions = { ...this.defaultChartOptions };
 
-          if(i > 0){
-            newChartOptions.axisX2 = { lineThickness: 0, tickThickness: 0,labelFontSize: 0 };
+          if (i > 0) {
+            newChartOptions.axisX2 = {
+              lineThickness: 0,
+              tickThickness: 0,
+              labelFontSize: 0,
+            };
           }
 
           newChartOptions['companyName'] = company.name;
