@@ -108,7 +108,7 @@ export class InvestmentDataService {
   /**
    * getDefaultIndustryData
    * @returns Observable<object>
-   * @description creates mock industry data set similar to 
+   * @description creates mock industry data set similar to
    * what may be retrieved from a remote service call
    */
   public getDefaultIndustryData(): Observable<any[]> {
@@ -222,8 +222,6 @@ export class InvestmentDataService {
           newChartOptions['entityName'] = industryObj.name;
 
           newChartOptions.data[0].dataPoints = [];
-
-          console.log(JSON.stringify(industryObj));
 
           for (let year of industryObj['years']) {
             newChartOptions.data[0].dataPoints.push({
