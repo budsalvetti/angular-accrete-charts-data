@@ -31,20 +31,20 @@
   <div id="chartsContainer">
     <!-- loop the charts -->
     <div
-      *ngFor="let company of chartData"
+      *ngFor="let entity of chartData"
       style="height:150px;display:flex;width:100%"
     >
-      <!-- company name -->
+      <!-- entity name -->
       <div
         style="width:170px;height:100%;display:flex;align-items:center;margin-left:20px"
       >
-        {{ company.entityName }}
+        {{ entity.entityName }}
       </div>
 
       <!-- chart -->
       <div style="width:100%">
         <canvasjs-chart
-          [options]="company"
+          [options]="entity"
           [styles]="{ width: '100%' }"
         ></canvasjs-chart>
       </div>
