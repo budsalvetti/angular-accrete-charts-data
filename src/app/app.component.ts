@@ -12,19 +12,15 @@ enum MODES {
 })
 export class AppComponent implements OnInit {
   private readonly defaultMode = MODES.COMPANY;
-  private chartData: any[];
+  public chartData: any[] = [];
 
   constructor(private investmentDataService: InvestmentDataService) {}
-
-  chartsArray: any[];
 
   columnChartOptions = {
     animationEnabled: true,
     theme: 'dark1',
     height: 150,
-    title: {
-      //text: 'Angular Column Chart in Material UI Tabs',
-    },
+    axisX2: { lineThickness: 0, tickThickness: 0 },
     axisY: {
       gridThickness: 0,
       lineThickness: 0,
@@ -40,18 +36,7 @@ export class AppComponent implements OnInit {
         indexLabelOrientation: 'horizontal',
         axisXType: 'secondary',
         type: 'column',
-        dataPoints: [
-          { label: '2014', color: '#0085ff', y: 1000000000 },
-          { label: '2015', color: '#0085ff', y: 2000000000 },
-          { label: '2016', color: '#0085ff', y: 3000000000 },
-          { label: '2017', color: '#0085ff', y: 4000000000 },
-          { label: '2018', color: '#0085ff', y: 5000000000 },
-          { label: '2019', color: '#0085ff', y: 6000000000 },
-          { label: '2020', color: '#0085ff', y: 7000000000 },
-          { label: '2021', color: '#0085ff', y: 8000000000 },
-          { label: '2022', color: '#0085ff', y: 9000000000 },
-          { label: '2022', color: '#0085ff', y: 10000000000 },
-        ],
+        dataPoints: [],
       },
     ],
   };
@@ -59,9 +44,28 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.investmentDataService
       .getDefaultCompanyData()
-      .subscribe((chartData: object) => {
-        console.log(chartData);
+      .subscribe((chartData: any[]) => {
+        for (let company of chartData) {
+          //copy the default chart options
+          let newChartOptions = { ...this.columnChartOptions };
+
+          newChartOptions.data[0].dataPoints = [];
+
+          for (let year of company['years']) {
+            newChartOptions.data[0].dataPoints.push({
+              label: year.year as string,
+              color: '#0085ff',
+              y: year['total'],
+            });
+          }
+
+          this.chartData.push(newChartOptions);
+        }
       });
+  }
+
+  public getChartOptions(i: number) {
+    return this.chartData[i];
   }
 
   public switchTabs(event) {

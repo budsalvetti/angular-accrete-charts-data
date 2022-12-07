@@ -46,7 +46,7 @@ export class InvestmentDataService {
    * as http_client also parses returned JSON into javascript objects so this is a decent mock
    * @returns Observable<object>
    */
-  public getDefaultCompanyData(): Observable<object> {
+  public getDefaultCompanyData(): Observable<any[]> {
     const rtnVal = [];
 
     let yearTotal = 100000000;
@@ -79,7 +79,7 @@ export class InvestmentDataService {
    * getDefaultIndustryData
    * @returns Observable<object>
    */
-  public getDefaultIndustryData(): Observable<object> {
+  public getDefaultIndustryData(): Observable<any[]> {
     const rtnVal = [];
 
     for (let industry of this.industries) {
@@ -115,7 +115,7 @@ export class InvestmentDataService {
    */
   public getIndustryDataByInvestmentCategory(
     investmentCategory: string
-  ): Observable<object> {
+  ): Observable<any[]> {
     return this.getDefaultIndustryData();
   }
 }

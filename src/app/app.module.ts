@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -11,7 +12,7 @@ import { InvestmentDataService } from './services/investment-data.service';
 
 @NgModule({
   declarations: [AppComponent, CanvasJSChart],
-  imports: [BrowserAnimationsModule, BrowserModule, MatTabsModule],
+  imports: [BrowserAnimationsModule, BrowserModule, CommonModule, MatTabsModule],
   providers: [InvestmentDataService],
   bootstrap: [AppComponent],
 })
