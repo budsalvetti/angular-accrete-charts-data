@@ -201,7 +201,7 @@ export class InvestmentDataService {
      const adaptedChartData = [];
  
      for (let i = 0; i < chartData.length; i++) {
-       const industry = chartData[i];
+       const industryObj = chartData[i];
  
        //shallow copy the default chart options
        let newChartOptions = {
@@ -217,11 +217,11 @@ export class InvestmentDataService {
          };
        }
  
-       newChartOptions['entityName'] = industry.name;
+       newChartOptions['entityName'] = industryObj.name;
  
        newChartOptions.data[0].dataPoints = [];
  
-       for (let year of industry['years']) {
+       for (let year of industryObj['years']) {
          newChartOptions.data[0].dataPoints.push({
            label: year.year as string,
            color: '#0085ff',

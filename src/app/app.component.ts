@@ -34,34 +34,35 @@ export class AppComponent implements OnInit {
     // get the data for the investment category dropdown
     this.investmentCategories = this.investmentDataService.investmentCategories;
     this.investmentCategories.push('ALL');
- 
-    this.populateChartData();
 
+    this.populateChartData(MODES.COMPANY);
   }
 
-
-  private populateChartData(){
-    this.investmentDataService.getDefaultCompanyChartData().subscribe((res: any[]) => {
-      this.chartData = res;
-    });
-
+  private populateChartData(entity: string) {
+    if (entity === MODES.COMPANY) {
+      this.investmentDataService
+        .getDefaultCompanyChartData()
+        .subscribe((res: any[]) => {
+          this.chartData = res;
+        });
+    } else {
+      this.investmentDataService
+        .getDefaultIndustryChartData()
+        .subscribe((res: any[]) => {
+          this.chartData = res;
+        });
+    }
   }
 
   // dropdown change handler for main entity COMPANY or INDUSTRY
   public handleEntityChange(entity) {
-
-    if(entity === MODES.COMPANY){
-      
-    }
-    
+    this.populateChartData(entity);
   }
 
   // dropdown change handler for investment category filter dropdown
-  public handleCatFilterChange(category) {
-  }
+  public handleCatFilterChange(category) {}
 
   public getChartOptions(i: number) {
     return this.chartData[i];
   }
-
 }
