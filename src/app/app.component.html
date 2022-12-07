@@ -17,7 +17,7 @@
     <select
       id="categoryFilterSelect"
       name="categoryFilterSelect"
-      (ngModelChange)="handleEntityChange($event)"
+      (ngModelChange)="handleCatFilterChange($event)"
       [(ngModel)]="selectedCategoryFilter"
     >
       <option *ngFor="let category of investmentCategories" [value]="category">
