@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { InvestmentDataService } from './services/investment-data.service';
 
 enum MODES {
-  COMPANY,
-  INDUSTRY,
+  COMPANY = 'COMPANY',
+  INDUSTRY = 'INDUSTRY',
 }
 
 @Component({
@@ -12,6 +12,9 @@ enum MODES {
 })
 export class AppComponent implements OnInit {
   private readonly defaultMode = MODES.COMPANY;
+
+  // make the MODES iterable so we can use in dropdown options
+  public modes = Object.keys(MODES);
 
   // an Array of chartData objects used to populate the charts
   public chartData: any[] = [];

@@ -4,10 +4,12 @@ import { Observable, of, pipe, map } from 'rxjs';
 @Injectable()
 export class InvestmentDataService {
   private defaultData: any[];
-  readonly years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022];
-  readonly industries = ['Software', 'Space and foreign technology'];
-  readonly companies = ['ArgusSoft', 'Andromedan Light'];
-  readonly investmentCategories = [
+  public readonly years = [
+    2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
+  ];
+  public readonly industries = ['Software', 'Space and foreign technology'];
+  public readonly companies = ['ArgusSoft', 'Andromedan Light'];
+  public readonly investmentCategories = [
     'CAPEX',
     'Revenue',
     'Aquisitions',
