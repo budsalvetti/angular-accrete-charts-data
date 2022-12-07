@@ -23,7 +23,7 @@ export class InvestmentDataService {
     theme: 'dark1',
     height: 150,
     // put the x-axis on top by using axisX2
-    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize: 14 },
+    axisX2: { lineThickness: 0, tickThickness: 0, labelFontSize: 12, labelFontColor: 'white'},
     axisY: {
       // hide the y x-axis completely
       gridThickness: 0,
@@ -138,7 +138,8 @@ export class InvestmentDataService {
             newChartOptions.axisX2 = {
               lineThickness: 0,
               tickThickness: 0,
-              labelFontSize: 0,
+              labelFontSize: 12,
+              labelFontColor: 'transparent' 
             };
           }
 
@@ -180,7 +181,8 @@ export class InvestmentDataService {
             newChartOptions.axisX2 = {
               lineThickness: 0,
               tickThickness: 0,
-              labelFontSize: 0,
+              labelFontSize: 12,
+              labelFontColor: 'transparent' 
             };
           }
 
