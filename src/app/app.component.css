@@ -1,3 +1,61 @@
-p {
-  font-family: Lato;
+/* Add application styles & imports to this file! */
+.my-app {
+  height: 100%;
+  background-color: #2a2a2a;
+  color: white;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.controlsContainer {
+  display: flex;
+  flex-grow: 1;
+  height: 200px;
+}
+
+select {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 350px;
+  height: 40px;
+  background-color: #2a2a2a;
+  color: white;
+}
+
+option {
+  padding: 0 30px 0 10px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #2a2a2a;
+  border-top: #222 solid 1px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+  order: 2;
+  z-index: 1;
+  transition: background 0.4s ease-in-out;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+option:hover {
+  background: #ff595c;
+}
+
+.select:focus .option {
+  position: relative;
+  pointer-events: all;
+}
+
+.option:hover {
+  background: #ff595c;
+}
+
+.select:focus .option {
+  position: relative;
+  pointer-events: all;
 }
