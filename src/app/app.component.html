@@ -8,7 +8,7 @@
       id="entitySelect"
       name="entitySelect"
       (ngModelChange)="handleEntityChange($event)"
-      ngModel
+      [(ngModel)]="selectedEntity"
     >
       <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
     </select>
@@ -18,7 +18,7 @@
       id="categoryFilterSelect"
       name="categoryFilterSelect"
       (ngModelChange)="handleEntityChange($event)"
-      ngModel
+      [(ngModel)]="selectedCategoryFilter"
     >
       <option *ngFor="let category of investmentCategories" [value]="category">
         {{ category }}

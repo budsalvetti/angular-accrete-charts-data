@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   // initialize form dropdown values
   public selectedEntity = MODES.COMPANY;
-  public selectCategoryFilter = 'ALL';
+  public selectedCategoryFilter = 'ALL';
 
   // an Array of chartData objects used to populate the charts
   public chartData: any[] = [];
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get the data for the investment category dropdown
     this.investmentCategories = this.investmentDataService.investmentCategories;
+    this.investmentCategories.push('ALL');
 
     this.investmentDataService
       .getDefaultCompanyData()
@@ -84,9 +85,4 @@ export class AppComponent implements OnInit {
     return this.chartData[i];
   }
 
-  public switchTabs(event) {
-    alert('yo');
-    console.log('what up');
-    console.log(event);
-  }
 }
