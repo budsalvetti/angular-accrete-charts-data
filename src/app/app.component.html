@@ -3,35 +3,46 @@
 >
   <!-- Begin Controls Container -->
   <div id="controlsContainer" class="controlsContainer">
-    <!-- ENTITY SELECT -->
-    <select
-      id="entitySelect"
-      name="entitySelect"
-      (ngModelChange)="handleEntityChange($event)"
-      [(ngModel)]="selectedEntity"
-    >
-      <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
-    </select>
+
+    <div id="entity-select-container">
+      
+      <!-- ENTITY SELECT -->
+      <label for="entitySelect" class="selectLabel">
+        data by :
+      <select
+        id="entitySelect"
+        name="entitySelect"
+        (ngModelChange)="handleEntityChange($event)"
+        [(ngModel)]="selectedEntity"
+      >
+        <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
+      </select>
+      </label>
+
+      <!-- Show if selected entry is 'INDUSTRY' to allow user to visualze the industry score correllations by year -->
+      <ng-container *ngIf="selectedEntity === modesEnum.INDUSTRY">
+        <button id="industryScoreBtn" class="industry-score-btn">
+          See Industries By Score
+        </button>
+      </ng-container>
+
+    </div>
 
     <!-- FILTER CATEGORY SELECT -->
-    <select
-      id="categoryFilterSelect"
-      name="categoryFilterSelect"
-      (ngModelChange)="handleCatFilterChange($event)"
-      [(ngModel)]="selectedCategoryFilter"
-    >
-      <option *ngFor="let category of investmentCategories" [value]="category">
-        {{ category }}
-      </option>
-    </select>
+    <div id="cat-filter-container">
+      <label class="selectLabel" for="categoryFilterSelect">filter by category  </label>
+      <select
+        id="categoryFilterSelect"
+        name="categoryFilterSelect"
+        (ngModelChange)="handleCatFilterChange($event)"
+        [(ngModel)]="selectedCategoryFilter"
+      >
+        <option *ngFor="let category of investmentCategories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
 
-    <!-- Show if selected entry is 'INDUSTRY' to allow user to visualze the industry score correllations by year -->
-    <!-- <ng-template *ngIf="selectedEntity === modesEnum.INDUSTRY">
-      <button>Industry By Score</button>
-    </ng-template> -->
-
-    <button id="industryScoreBtn"
-     class="industry-score-btn">See Industries By Score</button>
   </div>
   <!-- END Controls Container -->
 

@@ -4,6 +4,7 @@ import { InvestmentDataService } from './services/investment-data.service';
 enum MODES {
   COMPANY = 'COMPANY',
   INDUSTRY = 'INDUSTRY',
+  INDUSTRY_SCORE = 'INDUSTRY_SCORE'
 }
 
 @Component({
@@ -35,7 +36,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get the data for the investment category dropdown
     this.investmentCategories = this.investmentDataService.investmentCategories;
-
     this.populateChartData(this.selectedEntity, this.selectedCategoryFilter);
   }
 

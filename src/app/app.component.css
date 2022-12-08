@@ -7,16 +7,15 @@
   font-size: 14px;
 }
 
-.industry-score-btn{
-  background-color: #2A2A2A;
+.industry-score-btn {
+  background-color: #2a2a2a;
   color: white;
-  border-radius:3px;
+  border-radius: 3px;
   margin-left: 12px;
   height: 33px;
   margin-top: 12px;
   border: 1px grey solid;
 }
-
 
 .controlsContainer {
   display: flex;
@@ -56,20 +55,7 @@ option {
   white-space: nowrap;
 }
 
-option:hover {
-  background: #ff595c;
-}
-
-.select:focus .option {
-  position: relative;
-  pointer-events: all;
-}
-
-.option:hover {
-  background: #ff595c;
-}
-
-.select:focus .option {
-  position: relative;
-  pointer-events: all;
+.selectLabel {
+  margin-left: 12px;
+  font-size: 11px;
 }
