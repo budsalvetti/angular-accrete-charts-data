@@ -2,7 +2,7 @@
   style="height:100%;background-color:#2A2A2A;color:white;font-family:sans-serif;font-size:16px"
 >
   <!-- Begin Controls Container -->
-  <div id="controlsContainer" style="dispay:flex;flex-grow:1">
+  <div id="controlsContainer" class="controlsContainer">
     <!-- ENTITY SELECT -->
     <select
       id="entitySelect"
@@ -24,6 +24,14 @@
         {{ category }}
       </option>
     </select>
+
+    <!-- Show if selected entry is 'INDUSTRY' to allow user to visualze the industry score correllations by year -->
+    <!-- <ng-template *ngIf="selectedEntity === modesEnum.INDUSTRY">
+      <button>Industry By Score</button>
+    </ng-template> -->
+
+    <button id="industryScoreBtn"
+     class="industry-score-btn">See Industries By Score</button>
   </div>
   <!-- END Controls Container -->
 

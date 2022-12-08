@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   // make the MODES iterable so we can use in dropdown options
   public modes = Object.keys(MODES);
+  public modesEnum = MODES;
 
   public investmentCategories: any[];
 

@@ -7,6 +7,17 @@
   font-size: 14px;
 }
 
+.industry-score-btn{
+  background-color: #2A2A2A;
+  color: white;
+  border-radius:3px;
+  margin-left: 12px;
+  height: 33px;
+  margin-top: 12px;
+  border: 1px grey solid;
+}
+
+
 .controlsContainer {
   display: flex;
   flex-grow: 1;
