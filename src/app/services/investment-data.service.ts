@@ -16,10 +16,11 @@ export class InvestmentDataService {
     'Revenue',
     'Aquisitions',
     'R&D',
-    'Divestures',
+    'Divestures'
   ];
 
-  // this is mock data that is used as a starting point for investment categories which will be incremted to simulate change as we create the mock data
+  // this is mock data that is used as a starting point for investment categories which will be incremted to
+  // simulate change as we create the mock data
   public readonly mockCategorySeedAmounts = {'CAPEX': 15000000,
                                             'Revenue': 100000,
                                             'Aquisitions': 20000000,
