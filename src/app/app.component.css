@@ -58,4 +58,5 @@ option {
 .selectLabel {
   margin-left: 12px;
   font-size: 11px;
+  color: lightgrey;
 }
