@@ -1,3 +1,2 @@
-# angular-charts-material-ui-tabs-wmgwa4
+# angular-accrete-charts-data-by-industry
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-charts-material-ui-tabs-wmgwa4)
